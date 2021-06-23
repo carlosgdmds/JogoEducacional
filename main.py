@@ -3,6 +3,13 @@ from pygame.locals import *
 
 class Main():
 	def __init__(self):
+
+		arquivo = open("log.txt",'a')
+		nome = input("Digite o seu nome: ")
+		email = input("Digite o seu email: ")
+		arquivo.write("Usuario: "+nome+", "+"Email: "+email+"\n")
+		arquivo.close()
+
 		pygame.init()
 		pygame.display.set_caption("Jogo")
 		screen = pygame.display.set_mode((1000,600))
@@ -19,6 +26,7 @@ class Main():
 			vogais.append(pygame.image.load("imagens/vogal"+str(n)+".png"))
 		for n in range(1,6):
 			consoantes.append(pygame.image.load("imagens/consoante"+str(n)+".png"))
+
 		while True:
 			screen.fill((0,0,0))
 			screen.blit(self.fundo,(0,0))
@@ -27,12 +35,14 @@ class Main():
 				if event.type == QUIT:
 					pygame.quit()
 					sys.exit()
-			
+
+			#fisica das letras e verifica colisao com a tela
 			for n in range(0,5):
 				posicaoYv[n] = posicaoYv[n] + velocidadesv[n]
 				if posicaoYv[n] >= 650:
 					posicaoYv[n] = 0
 
+			#mostra na tela as vogais e consoantes
 			for n in range(0,5):
 				screen.blit(vogais[n],(posicaoXv[n],posicaoYv[n]))
 
